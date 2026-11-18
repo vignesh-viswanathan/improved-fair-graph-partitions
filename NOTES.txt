@@ -1,0 +1,101 @@
+EXACT CERTIFICATE FOR A (38/25, 0)-CORE WHEN n >= 240
+
+Result and verification
+-----------------------
+This package verifies the computational part of the two-blocker proof for
+every even augmented order N >= 240. For an original graph with n >= 240,
+leave it unchanged when n is even and pad it by one isolated vertex when n
+is odd, as in the manuscript. The resulting N is at least 240. The stated
+existence theorem is for every original n >= 240.
+
+Run "python3 check.py" with Python and SymPy 1.14.0. The independent checker
+is 128 physical lines, including imports, blank lines, the full mathematical
+model, and all checks. It uses exact arithmetic, with no optimizer, numerical
+tolerance, or search code. certificate.json contains 12 rational identities
+and a complete cover of 157 boxes. The certificate is 161,815 bytes, and the
+executed check passed in 229.7 seconds; verification.txt records the result.
+The certificate is data, never executable code.
+
+Note on the A2 sampling coefficient
+-----------------------------------
+The coordinated-exchange row in check.py uses the coefficient 17/8 for
+edges inside A2. It is justified below; the same derivation appears in
+the "Sampling correction" paragraph of Appendix C of the paper.
+
+Use the manuscript's notation b=2|A1|/N, c=2|B2|/N, r=2|A4|/N, x_U=|U|/N,
+and z >= 1/N. Write q=q_A2=(c-b)(1/2-c)/(1-c-b) and m=|A2|.
+
+The cell A2 contains at least 17 vertices in every coordinated-exchange
+case used here. In the low-ratio case, c<=1/2 and b/c<=1144/1575 give
+
+    m = N(1-c-b)/2 >= 431N/6300 >= 1724/105 > 16.
+
+Since m is an integer, m>=17. In the exceptional case
+(|B2|,|A1|)=(4,3), m=N/2-7>=113, so m>=17 there as well.
+
+Sampling a fixed number of vertices adds the internal-edge correction
+2q(1-q)e_A2,A2/(m-1) to independent movement. If the sample count K is
+randomized between adjacent integers with mean qm, its exact correction is
+
+    [2q(1-q)/(m-1) - 2 Var(K)/(m(m-1))] e_A2,A2.
+
+Thus, using m>=17, 0<=q<=1, and z>=1/N, its coefficient is at most
+
+    2q(1-q)/(m-1)
+      <= 17q(1-q)/(8m)
+      <= 17zq(1-q)/(8x_A2).
+
+The first inequality is equivalent to m/(m-1)<=17/16; the second uses
+m=Nx_A2. Consequently the necessary coordinated-exchange inequality is
+
+    C(q) + z[17 q_A2(1-q_A2)e_A2,A2/(8x_A2) + e_A3,A3/x_A3]
+         + z^2 e_A2,A3/(2x_A2 x_A3) >= 0.
+
+The correction terms for edges inside A3 and between A2 and A3 are derived
+in the same paragraph of the paper; the cross-cell bound uses Var(K)<=1/4,
+which holds because K takes two adjacent integer values.
+
+What the checker proves
+-----------------------
+Set E=1/240 and alpha=38/25. Cell order is A1,A2,A3,A4,B1,B2,B3,B4, with
+Python indices 0,...,7. There are 28 nonnegative edge variables, one for each
+unordered pair (including equal pairs) of the seven active cells. The
+membership vectors X,S,T and all row definitions appear in check.py.
+
+Each certificate identity has the form
+
+    -J = sum_i lambda_i M_i + sum_j mu_j e_j,
+
+with nonnegative rational functions lambda_i and mu_j. The rows M_i are
+necessary blocking and cut inequalities. J is either the overlap's combined
+blocking gain or the sum of the six blocking gains. Each is strictly positive
+in a graph counterexample, whereas the identity forces J <= 0.
+
+The five checked domains are:
+  B: overlap B1, 1/2-E <= a <= 1, 0 < b <= 1/2+E;
+  large: overlap A1, b>=c, t=c/b in (0,1], |B2|>=3;
+  high: b<c, t=b/c in [1144/1575,1], |B2|>=5;
+  exception: (|B2|,|A1|)=(4,3), 0<c<=8E, 0<=u=r/b<=1;
+  low: 0<c<=1/2, 0<t=b/c<=1144/1575, 0<=u=r/b<=1.
+
+The low-case models use z=E or z=b/2. Both are >=1/N. The exception uses
+z=c/8=1/N. The manuscript first excludes |B2|<=2 and supplies the large
+and high reverse-exchange inequalities, so these five domains exhaust its
+cases.
+
+Every identity is checked symbolically. Coefficient signs and nonvanishing
+denominators are checked by exact rational Bernstein coefficients, including
+all included boundary faces. A binary bisection tree with both children at
+every internal node certifies complete domain coverage.
+
+What a reader must still check
+-----------------------------
+The manuscript's combinatorial reduction remains necessary: the two
+blocking sets, odd-order padding, overlap localization, exclusion of
+|B2|<=2, and the sampling inequalities. This package replaces the computational
+part of that proof; the A2 sampling coefficient it uses is justified above. It
+does not claim that 240 is the best possible threshold.
+
+The result is Theorem 4.3 of "Improved Fair Graph Partitions" by Nisarg Shah
+and Vignesh Viswanathan (arXiv version: proof in Appendix B, certificate in
+Appendix C). README.md links to the paper.

@@ -1,0 +1,7 @@
+B: identities and signs verified on 1 box(es)
+large: identities and signs verified on 1 box(es)
+high: identities and signs verified on 1 box(es)
+exception: identities and signs verified on 1 box(es)
+low: identities and signs verified on 153 box(es)
+PASS: exact certificate for alpha=38/25, augmented N>=240; 157 boxes.
+Runtime: 229.69758470891975 seconds

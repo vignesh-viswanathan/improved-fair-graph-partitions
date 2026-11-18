@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this certificate or checker, please cite the paper below."
+type: software
+title: "Exact certificate and checker for Theorem 4.3 of Improved Fair Graph Partitions"
+authors:
+  - family-names: Shah
+    given-names: Nisarg
+    affiliation: University of Toronto
+  - family-names: Viswanathan
+    given-names: Vignesh
+    affiliation: University of Massachusetts Amherst
+repository-code: "https://github.com/vignesh-viswanathan/improved-fair-graph-partitions"
+license: MIT
+keywords:
+  - graph partitioning
+  - fairness
+  - core stability
+  - computer-assisted proof
+preferred-citation:
+  type: article
+  title: "Improved Fair Graph Partitions"
+  authors:
+    - family-names: Shah
+      given-names: Nisarg
+    - family-names: Viswanathan
+      given-names: Vignesh
+  year: 2026
+  journal: "arXiv preprint arXiv:2605.03238"
+  url: "https://arxiv.org/abs/2605.03238"
+  doi: "10.48550/arXiv.2605.03238"
